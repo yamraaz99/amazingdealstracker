@@ -3,11 +3,11 @@ import { PLATFORMS, STORE_KEYS } from '@/lib/platforms';
 
 export function StoreGrid() {
   return (
-    <section id="stores" className="w-full max-w-6xl mx-auto px-4 mt-16">
-      <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 text-center mb-2">
+    <section id="stores" className="w-full max-w-6xl mx-auto px-4 mt-8 md:mt-16">
+      <h2 className="text-xl md:text-3xl font-extrabold text-gray-900 text-center mb-1 md:mb-2">
         Browse by Store
       </h2>
-      <p className="text-center text-gray-700 mb-8 text-sm">
+      <p className="text-center text-gray-700 mb-4 md:mb-8 text-xs md:text-sm">
         We track prices across every major marketplace in India.
       </p>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">

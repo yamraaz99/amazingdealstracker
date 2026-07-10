@@ -11,15 +11,15 @@ const PLACEHOLDER = [
 
 export function TrendingPreview() {
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 mt-16">
-      <div className="flex items-end justify-between mb-6">
+    <section className="w-full max-w-6xl mx-auto px-4 mt-8 md:mt-16">
+      <div className="flex items-end justify-between mb-4 md:mb-6">
         <div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center gap-2">
+          <h2 className="text-xl md:text-3xl font-extrabold text-gray-900 flex items-center gap-2">
             <span>🔥</span> Trending Deals
           </h2>
-          <p className="text-sm text-gray-700 mt-1">Hottest picks updated hourly.</p>
+          <p className="text-xs md:text-sm text-gray-700 mt-1">Hottest picks updated hourly.</p>
         </div>
-        <Link href="/trending" className="text-sm font-bold text-orange-600 hover:underline">
+        <Link href="/trending" className="text-xs md:text-sm font-bold text-orange-600 hover:underline">
           View all →
         </Link>
       </div>

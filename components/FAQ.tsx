@@ -27,8 +27,8 @@ const FAQS = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="w-full max-w-4xl mx-auto px-4 mt-16">
-      <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 text-center mb-8">
+    <section id="faq" className="w-full max-w-4xl mx-auto px-4 mt-8 md:mt-16">
+      <h2 className="text-xl md:text-3xl font-extrabold text-gray-900 text-center mb-4 md:mb-8">
         Frequently Asked
       </h2>
       <div className="space-y-3">

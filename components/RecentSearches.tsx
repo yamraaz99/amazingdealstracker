@@ -29,8 +29,8 @@ export function RecentSearches() {
   if (!ready || items.length === 0) return null;
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 mt-16">
-      <h2 className="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-2">
+    <section className="w-full max-w-6xl mx-auto px-4 mt-8 md:mt-16">
+      <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
         <span>🕘</span> Your Recently Searched
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">

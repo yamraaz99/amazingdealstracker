@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { TrackResultView } from './TrackResultView';
 import { PlatformStrip } from './PlatformStrip';
 import type { TrackResult } from '@/lib/track';
@@ -18,20 +18,39 @@ function saveRecent(entry: { url: string; title: string; image: string; store: s
   } catch {}
 }
 
+function friendlyError(raw: string): string {
+  const m = raw.toLowerCase();
+  if (m.includes('please paste')) return 'Please paste a product link to continue.';
+  if (m.includes('detect') || m.includes('platform')) return 'We could not recognise this link. Make sure it points to a supported marketplace product page.';
+  if (m.includes('not found')) return 'We could not find price data for this product yet. It may be brand new or unlisted.';
+  if (m.includes('too many')) return 'You are searching a bit fast. Please wait a moment and try again.';
+  if (m.includes('forbidden')) return 'Request blocked for security. Please refresh the page and try again.';
+  if (m.includes('invalid url')) return 'That does not look like a valid link. Please check and try again.';
+  if (m.includes('blocked')) return 'This link is not allowed. Please use a public product URL.';
+  return 'Something went wrong on our end. Please try again in a moment.';
+}
+
 export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
   const [url, setUrl] = useState(initialUrl);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ msg: string; tone: 'ok' | 'err' } | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<TrackResult | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (result && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [result]);
 
   const onSubmit = useCallback(async (e?: React.FormEvent) => {
     e?.preventDefault();
     const value = url.trim();
     if (!value) {
-      setStatus({ msg: 'Please paste a valid product link.', tone: 'err' });
+      setError('Please paste a product link to continue.');
       return;
     }
-    setStatus(null);
+    setError(null);
     setResult(null);
     setLoading(true);
     try {
@@ -39,15 +58,14 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Failed to fetch');
       setResult(json as TrackResult);
-      setStatus({ msg: 'Data loaded successfully!', tone: 'ok' });
       const r = json as TrackResult;
       saveRecent({
         url: value, title: r.title, image: r.image,
         store: r.detectedStore, pid: r.pid, price: r.currentPrice,
       });
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Something went wrong';
-      setStatus({ msg: message, tone: 'err' });
+      const raw = err instanceof Error ? err.message : '';
+      setError(friendlyError(raw));
     } finally {
       setLoading(false);
     }
@@ -55,22 +73,22 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
 
   return (
     <div className="w-full">
-      <div className="card w-full max-w-2xl mx-auto p-6 mb-8">
-        <form onSubmit={onSubmit} className="flex flex-col md:flex-row gap-3">
+      <div className="card w-full max-w-2xl mx-auto p-4 md:p-6 mb-6">
+        <form onSubmit={onSubmit} className="flex flex-col md:flex-row gap-2 md:gap-3">
           <input
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste any product link (Amazon, Flipkart, Myntra, JioMart, Meesho…)"
-            className="flex-1 p-4 rounded-xl border-2 border-gray-200 focus:border-yellow-500 focus:outline-none transition-colors text-gray-700 font-medium text-sm md:text-base"
+            placeholder="Paste product link (Amazon, Flipkart, Myntra…)"
+            className="flex-1 p-3 md:p-4 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none transition-colors text-gray-700 font-medium text-sm md:text-base"
             aria-label="Product URL"
             required
           />
-          <button type="submit" disabled={loading} className="btn-primary py-4 px-8 min-w-[140px]">
+          <button type="submit" disabled={loading} className="btn-primary py-3 md:py-4 px-6 md:px-8 min-w-[130px]">
             {loading ? (
               <>
                 <div className="loader" />
-                <span>Processing...</span>
+                <span>Fetching…</span>
               </>
             ) : (
               <span>Track Price</span>
@@ -78,14 +96,16 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
           </button>
         </form>
         <PlatformStrip />
-        {status && (
-          <div className={`mt-4 p-3 rounded-lg text-sm text-center font-semibold ${
-            status.tone === 'ok' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-          }`}>{status.msg}</div>
+        {error && (
+          <div className="mt-3 p-3 rounded-lg text-sm text-center font-medium bg-red-50 text-red-700 border border-red-200">
+            {error}
+          </div>
         )}
       </div>
 
-      {result && <TrackResultView data={result} />}
+      <div ref={resultRef}>
+        {result && <TrackResultView data={result} />}
+      </div>
     </div>
   );
 }

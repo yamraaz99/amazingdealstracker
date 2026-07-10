@@ -72,21 +72,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 function SiteHeader() {
   return (
-    <header className="w-full py-5 px-4 border-b border-black/5 bg-brand-yellow/60 backdrop-blur">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.jpg" alt="Amazing Dealz" className="w-10 h-10 rounded-lg object-cover" />
-          <span className="text-2xl md:text-3xl font-extrabold italic tracking-tight text-black">
+    <header className="sticky top-0 z-40 w-full py-3 md:py-4 px-4 bg-white/95 backdrop-blur-md shadow-[0_2px_10px_-6px_rgba(0,0,0,0.15)] border-b border-black/5">
+      <nav className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          <span className="p-0.5 bg-white rounded-xl ring-2 ring-orange-500 shadow-sm">
+            <img src="/logo.jpg" alt="Amazing Dealz" className="w-9 h-9 md:w-10 md:h-10 rounded-lg object-cover block" />
+          </span>
+          <span className="text-lg md:text-2xl font-extrabold italic tracking-tight text-black">
             Amazing Dealz
           </span>
         </Link>
-        <ul className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-800">
+        <ul className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-700">
           <li><Link href="/trending" className="hover:text-orange-600 transition-colors">Trending</Link></li>
           <li><Link href="/track" className="hover:text-orange-600 transition-colors">Track</Link></li>
           <li><Link href="/#stores" className="hover:text-orange-600 transition-colors">Stores</Link></li>
           <li><Link href="/#faq" className="hover:text-orange-600 transition-colors">FAQ</Link></li>
         </ul>
-        <Link href="/track" className="btn-primary py-2 px-4 text-sm">Track a Product</Link>
+        <Link href="/track" className="btn-primary py-2 px-3 md:px-4 text-xs md:text-sm">Track</Link>
       </nav>
     </header>
   );
@@ -94,7 +96,7 @@ function SiteHeader() {
 
 function SiteFooter() {
   return (
-    <footer className="w-full mt-16 py-10 px-4 border-t border-black/10 bg-white/40 backdrop-blur">
+    <footer className="w-full mt-8 md:mt-16 py-8 md:py-10 px-4 border-t border-black/10 bg-white/40 backdrop-blur">
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
         <div>
           <h3 className="font-extrabold text-gray-900 mb-3">Amazing Dealz</h3>
