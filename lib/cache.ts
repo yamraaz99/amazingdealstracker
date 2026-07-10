@@ -13,8 +13,7 @@ interface KVNamespace {
 const memory = new Map<string, { v: string; e: number }>();
 
 function getKV(): KVNamespace | null {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const env = (globalThis as any).process?.env;
+  const env = (globalThis as unknown as { process?: { env?: { CACHE?: KVNamespace } } }).process?.env;
   return env?.CACHE ?? null;
 }
 

@@ -26,8 +26,7 @@ export async function rateLimit(
   limit = 10,
   windowSec = 60,
 ): Promise<RateLimitResult> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const env = (globalThis as any).process?.env as CFEnv | undefined;
+  const env = (globalThis as unknown as { process?: { env?: CFEnv } }).process?.env;
   const kv = env?.RL;
   if (!kv) return { ok: true, remaining: limit, reset: 0 }; // dev fallback
 
