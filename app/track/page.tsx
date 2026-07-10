@@ -8,8 +8,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/track' },
 };
 
-export default function TrackPage({ searchParams }: { searchParams: { url?: string } }) {
-  const initial = typeof searchParams.url === 'string' ? searchParams.url : '';
+export default async function TrackPage({ searchParams }: { searchParams: Promise<{ url?: string }> }) {
+  const sp = await searchParams;
+  const initial = typeof sp.url === 'string' ? sp.url : '';
   return (
     <section className="w-full py-10 px-4">
       <div className="max-w-3xl mx-auto text-center mb-6">

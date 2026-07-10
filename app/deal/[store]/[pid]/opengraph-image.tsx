@@ -14,14 +14,15 @@ function isStoreKey(v: string): v is StoreKey {
   return (STORE_KEYS as string[]).includes(v);
 }
 
-export default async function Image({ params }: { params: Params }) {
+export default async function Image({ params }: { params: Promise<Params> }) {
+  const { store, pid } = await params;
   let title = 'Amazing Dealz';
   let price = '';
   let low = '';
   let storeName = '';
   try {
-    if (isStoreKey(params.store)) {
-      const data = await trackByPid(params.store, params.pid);
+    if (isStoreKey(store)) {
+      const data = await trackByPid(store, pid);
       title = (data.title || 'Product').slice(0, 80);
       price = rupees(data.currentPrice);
       low = rupees(data.lowestPrice);

@@ -9,13 +9,14 @@ function isStoreKey(v: string): v is StoreKey {
   return (STORE_KEYS as string[]).includes(v);
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  if (!isStoreKey(params.store)) return { title: 'Store Not Found', robots: { index: false } };
-  const p = PLATFORMS[params.store];
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { store } = await params;
+  if (!isStoreKey(store)) return { title: 'Store Not Found', robots: { index: false } };
+  const p = PLATFORMS[store];
   return {
     title: `${p.name} Price Tracker`,
     description: `Track prices on ${p.name}. See historical highs & lows, compare against Amazon, Flipkart, Myntra and more, and never overpay.`,
-    alternates: { canonical: `/stores/${params.store}` },
+    alternates: { canonical: `/stores/${store}` },
   };
 }
 
@@ -23,9 +24,10 @@ export function generateStaticParams() {
   return STORE_KEYS.map((store) => ({ store }));
 }
 
-export default function StorePage({ params }: { params: Params }) {
-  if (!isStoreKey(params.store)) notFound();
-  const p = PLATFORMS[params.store];
+export default async function StorePage({ params }: { params: Promise<Params> }) {
+  const { store } = await params;
+  if (!isStoreKey(store)) notFound();
+  const p = PLATFORMS[store];
 
   return (
     <section className="py-10 px-4">

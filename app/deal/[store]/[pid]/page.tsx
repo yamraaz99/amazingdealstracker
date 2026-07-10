@@ -24,20 +24,21 @@ async function loadDeal(store: string, pid: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const data = await loadDeal(params.store, params.pid);
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { store, pid } = await params;
+  const data = await loadDeal(store, pid);
   if (!data) return { title: 'Deal Not Found', robots: { index: false } };
 
   const savings = data.mrp > data.currentPrice
     ? ` (was ${rupees(data.mrp)})` : '';
-  const store = PLATFORMS[data.detectedStore].name;
-  const title = `${data.title || 'Product'} — ${rupees(data.currentPrice)}${savings} | ${store} Price History`;
+  const storeName = PLATFORMS[data.detectedStore].name;
+  const title = `${data.title || 'Product'} — ${rupees(data.currentPrice)}${savings} | ${storeName} Price History`;
   const description = `Track ${data.title || 'this product'} price. Currently ${rupees(data.currentPrice)}. Lowest ever: ${rupees(data.lowestPrice)}. Compare across Amazon, Flipkart, Myntra & more.`;
 
   return {
     title,
     description,
-    alternates: { canonical: `/deal/${params.store}/${params.pid}` },
+    alternates: { canonical: `/deal/${store}/${pid}` },
     openGraph: {
       title, description,
       images: data.image ? [{ url: data.image }] : undefined,
@@ -51,8 +52,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
-export default async function DealPage({ params }: { params: Params }) {
-  const data = await loadDeal(params.store, params.pid);
+export default async function DealPage({ params }: { params: Promise<Params> }) {
+  const { store, pid } = await params;
+  const data = await loadDeal(store, pid);
   if (!data) notFound();
 
   const productJsonLd = {
