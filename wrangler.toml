@@ -1,0 +1,17 @@
+name = "amazingdealstracker"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+# Bind KV namespaces AFTER creating them in Cloudflare dashboard:
+#   Wrangler CLI:  npx wrangler kv:namespace create CACHE
+#                  npx wrangler kv:namespace create RL
+# Then paste the returned IDs below and uncomment.
+#
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "REPLACE_WITH_CACHE_NAMESPACE_ID"
+#
+# [[kv_namespaces]]
+# binding = "RL"
+# id = "REPLACE_WITH_RATELIMIT_NAMESPACE_ID"
