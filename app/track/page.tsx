@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { TrackForm } from '@/components/TrackForm';
-import { PlatformStrip } from '@/components/PlatformStrip';
+
+export const runtime = 'edge';
 
 export const metadata: Metadata = {
   title: 'Track Any Product Price',
