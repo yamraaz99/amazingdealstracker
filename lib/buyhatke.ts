@@ -42,7 +42,7 @@ export interface GraphPoint {
 }
 
 async function fetchJson(url: string): Promise<CompareResponse> {
-  const res = await fetch(url, { headers: API_HEADERS, cache: 'no-store' });
+  const res = await fetch(url, { headers: API_HEADERS});
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = (await res.json()) as CompareResponse;
   if (json.status !== 1 || !json.data || json.data.length === 0) throw new Error('empty');
@@ -63,7 +63,7 @@ export async function fetchDittoSearch(pid: string, pos: number): Promise<Compar
 
 export async function fetchGraphData(pid: string, pos: number): Promise<GraphPoint[]> {
   const url = `https://graph.bitbns.com/getPredictedData.php?type=log&indexName=interest_centers&logName=info&pos=${pos}&pid=${encodeURIComponent(pid)}&mainFL=1`;
-  const res = await fetch(url, { headers: API_HEADERS, cache: 'no-store' });
+  const res = await fetch(url, { headers: API_HEADERS});
   if (!res.ok) throw new Error(`graph HTTP ${res.status}`);
   const text = await res.text();
   if (!text || text.trim().length < 10) throw new Error('graph empty');
