@@ -76,9 +76,10 @@ export function PriceChart({ labels, data, dates }: Props) {
     const ctx = canvasRef.current.getContext('2d');
     if (!ctx) return;
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(255, 153, 0, 0.45)');
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    const canvasHeight = canvasRef.current.clientHeight || 300;
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
+    gradient.addColorStop(0, 'rgba(255, 153, 0, 0.42)');
+    gradient.addColorStop(1, 'rgba(255, 153, 0, 0)');
 
     const maxTicksX = isMobile ? 5 : 10;
 
@@ -98,7 +99,8 @@ export function PriceChart({ labels, data, dates }: Props) {
           pointHoverRadius: isMobile ? 5 : 6,
           pointHitRadius: 12,
           fill: true,
-          tension: 0.4,
+          tension: 0.35,
+          cubicInterpolationMode: 'monotone',
         }],
       },
       options: {
