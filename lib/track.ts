@@ -31,6 +31,7 @@ export interface TrackResult {
   stores: StorePrice[];
   chartLabels: string[];
   chartData: number[];
+  chartDates: string[]; // ISO YYYY-MM-DD, aligned with chartLabels/chartData
 }
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -136,6 +137,7 @@ function buildResult(
   // Graph-derived stats
   let chartLabels: string[] = [];
   let chartData: number[] = [];
+  let chartDates: string[] = [];
   let lowestPrice = 0, highestPrice = 0, averagePrice = 0;
 
   if (graphData && graphData.length > 0) {
@@ -144,6 +146,7 @@ function buildResult(
       return `${MONTHS[parseInt(m, 10) - 1]} ${d}`;
     });
     chartData = graphData.map((p) => p.price);
+    chartDates = graphData.map((p) => p.date);
     lowestPrice = Math.min(...chartData);
     highestPrice = Math.max(...chartData);
     averagePrice = Math.round(chartData.reduce((a, b) => a + b, 0) / chartData.length);
@@ -224,6 +227,6 @@ function buildResult(
   return {
     pid, detectedStore, title, image, category, quantity, mrp,
     currentPrice, lowestPrice, highestPrice, averagePrice,
-    stores, chartLabels, chartData,
+    stores, chartLabels, chartData, chartDates,
   };
 }

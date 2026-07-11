@@ -92,10 +92,7 @@ export function TrackResultView({ data }: { data: TrackResult }) {
 
       {/* Chart */}
       <div className="card p-3 md:p-8">
-        <h3 className="text-sm md:text-lg font-bold text-gray-800 mb-3 md:mb-4 border-l-4 border-yellow-500 pl-2 md:pl-3">
-          Price History
-        </h3>
-        <PriceChart labels={data.chartLabels} data={data.chartData} />
+        <PriceChart labels={data.chartLabels} data={data.chartData} dates={data.chartDates} />
       </div>
     </div>
   );
