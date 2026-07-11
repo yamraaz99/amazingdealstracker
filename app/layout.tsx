@@ -2,7 +2,16 @@ import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import Link from 'next/link';
 import { SITE } from '@/lib/site';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import './globals.css';
+
+const themeInitScript = `
+(function(){try{
+  var s=localStorage.getItem('adz:theme')||'system';
+  var dark = s==='dark' || (s==='system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  if(dark) document.documentElement.classList.add('dark');
+}catch(e){}})();
+`;
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -53,14 +62,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FFE135',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFE135' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b0d12' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en" className={poppins.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="font-sans text-gray-900 antialiased">
         <SiteHeader />
         <main>{children}</main>
@@ -88,7 +103,10 @@ function SiteHeader() {
           <li><Link href="/#stores" className="hover:text-orange-600 transition-colors">Stores</Link></li>
           <li><Link href="/#faq" className="hover:text-orange-600 transition-colors">FAQ</Link></li>
         </ul>
-        <Link href="/track" className="btn-primary py-2 px-3 md:px-4 text-xs md:text-sm">Track</Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link href="/track" className="btn-primary py-2 px-3 md:px-4 text-xs md:text-sm">Track</Link>
+        </div>
       </nav>
     </header>
   );
