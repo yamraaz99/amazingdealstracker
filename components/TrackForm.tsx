@@ -60,6 +60,14 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
     }
   }, [result]);
 
+  // Auto-fetch on mount when a URL was prefilled (e.g. share intent, deep link)
+  useEffect(() => {
+    if (initialUrl && /^https?:\/\//i.test(initialUrl)) {
+      onSubmit();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onSubmit = useCallback(async (e?: React.FormEvent) => {
     e?.preventDefault();
     const value = url.trim();
