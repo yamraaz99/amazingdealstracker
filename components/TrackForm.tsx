@@ -103,7 +103,7 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
         )}
       </div>
 
-      <div ref={resultRef}>
+      <div ref={resultRef} className="scroll-mt-20 md:scroll-mt-24">
         {result && <TrackResultView data={result} />}
       </div>
     </div>

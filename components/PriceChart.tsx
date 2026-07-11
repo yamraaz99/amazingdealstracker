@@ -85,7 +85,7 @@ export function PriceChart({ labels, data }: Props) {
   }
 
   return (
-    <div className="relative w-full h-72 md:h-96">
+    <div className="relative w-full h-48 md:h-96">
       <canvas ref={canvasRef} />
     </div>
   );

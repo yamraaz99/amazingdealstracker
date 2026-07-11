@@ -36,9 +36,9 @@ export default function HomePage() {
 
       <Hero />
       <TrendingPreview />
+      <RecentSearches />
       <HowItWorks />
       <StoreGrid />
-      <RecentSearches />
       <TelegramCTA />
       <FAQ />
     </>
