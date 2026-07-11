@@ -3,39 +3,34 @@ import { SITE } from '@/lib/site';
 export function TelegramCTA() {
   return (
     <section className="w-full max-w-4xl mx-auto mt-8 md:mt-16 px-4">
-      <div className="relative bg-white rounded-2xl md:rounded-3xl border-b-4 md:border-b-8 border-r-2 md:border-r-4 border-orange-500 shadow-xl overflow-hidden p-5 md:p-10 transform transition-all hover:-translate-y-1 hover:shadow-2xl duration-300">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 md:w-48 h-40 md:h-48 bg-yellow-300 rounded-full blur-3xl opacity-40 md:opacity-50" />
-        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 md:w-48 h-40 md:h-48 bg-orange-200 rounded-full blur-3xl opacity-40 md:opacity-50" />
-        <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-8">
-          <div className="flex-shrink-0 relative hidden md:block">
-            <div className="absolute inset-0 bg-yellow-400 rounded-full blur-lg opacity-40 animate-pulse" />
-            <div className="relative bg-gradient-to-br from-orange-400 to-red-500 p-5 rounded-2xl shadow-lg border-2 border-yellow-300 rotate-3">
-              <svg className="w-12 h-12 md:w-16 md:h-16 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-              </svg>
-            </div>
-          </div>
-          <div className="flex-1 text-center md:text-left z-10">
-            <h3 className="text-xl md:text-3xl font-extrabold mb-1 md:mb-2 text-gray-900 italic tracking-tight">
-              Start Saving <span className="text-orange-600">Huge Money!</span>
-            </h3>
-            <p className="text-gray-600 font-medium text-xs md:text-base leading-relaxed">
-              Don't just track history — get notified instantly. Join our Telegram community for hand-picked deals & flash sales.
-            </p>
-          </div>
-          <div className="flex-shrink-0 z-10">
-            <a href={SITE.telegram} target="_blank" rel="noopener noreferrer"
-               className="group relative inline-flex items-center gap-2 md:gap-3 bg-[#229ED9] hover:bg-[#1c8bb4] text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-blue-300/50 hover:-translate-y-1 text-sm md:text-base">
-              <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm.09 5.86c-.14.01-.27.05-.39.11L3.92 10.3a1.4 1.4 0 0 0 .52 2.64l3.1.98 1.15 3.8a1.4 1.4 0 0 0 2.47.45l2.03-2.3 3.65 2.72a1.4 1.4 0 0 0 2.22-.88l2.35-11.08a1.4 1.4 0 0 0-1.92-1.57l-7.45 2.92z" />
-              </svg>
-              <span>Join Channel</span>
-            </a>
-            <div className="mt-2 flex justify-center items-center gap-1 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /> Live Deals
-            </div>
-          </div>
+      <div className="card p-4 md:p-6 flex items-center gap-3 md:gap-5">
+        <div className="flex-shrink-0 w-11 h-11 md:w-14 md:h-14 rounded-2xl bg-[#229ED9]/10 flex items-center justify-center">
+          <svg viewBox="0 0 24 24" className="w-6 h-6 md:w-7 md:h-7 text-[#229ED9]" fill="currentColor" aria-hidden="true">
+            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.24 3.64 11.95c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
+          </svg>
         </div>
+
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm md:text-lg font-bold text-gray-900 leading-tight">
+            Deals dropping daily on Telegram
+          </h3>
+          <p className="text-[11px] md:text-sm text-gray-600 leading-snug mt-0.5 hidden sm:block">
+            Hand-picked deals & flash sales. No signup, unsubscribe anytime.
+          </p>
+        </div>
+
+        <a
+          href={SITE.telegram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#229ED9] hover:bg-[#1c8bb4] text-white font-bold text-xs md:text-sm py-2.5 md:py-3 px-3.5 md:px-6 rounded-xl transition-colors whitespace-nowrap"
+        >
+          <span>Join</span>
+          <span className="hidden sm:inline">Channel</span>
+          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </a>
       </div>
     </section>
   );

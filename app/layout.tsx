@@ -105,7 +105,6 @@ function SiteHeader() {
         </ul>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link href="/track" className="btn-primary py-2 px-3 md:px-4 text-xs md:text-sm">Track</Link>
         </div>
       </nav>
     </header>
