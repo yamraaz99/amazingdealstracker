@@ -3,10 +3,10 @@ import Link from 'next/link';
 // Phase 5 will wire this to real Turso data. For now — curated placeholder cards
 // that demonstrate the layout so the landing page never looks empty.
 const PLACEHOLDER = [
-  { store: 'amazon',   pid: 'B0DGY8QW6D', title: 'Wireless Earbuds — Trending Pick',    price: 1499, mrp: 4999, image: 'https://compare.buyhatke.com/images/site_icons_m/amazon.png' },
-  { store: 'flipkart', pid: 'MOBGXXXXX',   title: 'Smartphone Deal of the Day',          price: 12999, mrp: 18999, image: 'https://compare.buyhatke.com/images/site_icons_m/flipkart1.png' },
-  { store: 'myntra',   pid: '12345678',    title: 'Fashion Under ₹499',                  price: 399, mrp: 999, image: 'https://compare.buyhatke.com/images/site_icons_m/myntra1.png' },
-  { store: 'bigbasket',pid: '10000001',    title: 'Grocery Combo Bestseller',            price: 249, mrp: 399, image: 'https://compare.buyhatke.com/images/site_icons_m/bigBasket.png' },
+  { store: 'amazon',   pid: 'B0DGY8QW6D', title: 'Wireless Earbuds — Trending Pick',    price: 1499, mrp: 4999, image: '/logos/amazon.png' },
+  { store: 'flipkart', pid: 'MOBGXXXXX',   title: 'Smartphone Deal of the Day',          price: 12999, mrp: 18999, image: '/logos/flipkart.png' },
+  { store: 'myntra',   pid: '12345678',    title: 'Fashion Under ₹499',                  price: 399, mrp: 999, image: '/logos/myntra.png' },
+  { store: 'bigbasket',pid: '10000001',    title: 'Grocery Combo Bestseller',            price: 249, mrp: 399, image: '/logos/bigbasket.png' },
 ];
 
 export function TrendingPreview() {
