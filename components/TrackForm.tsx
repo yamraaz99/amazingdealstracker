@@ -54,6 +54,12 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
     }
   }, []);
 
+  const onClear = useCallback(() => {
+    setUrl('');
+    setError(null);
+    inputRef.current?.focus();
+  }, []);
+
   useEffect(() => {
     if (result && resultRef.current) {
       resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -113,12 +119,17 @@ export function TrackForm({ initialUrl = '' }: { initialUrl?: string }) {
             />
             <button
               type="button"
-              onClick={onPaste}
-              aria-label="Paste from clipboard"
-              title="Paste from clipboard"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={url.trim() ? onClear : onPaste}
+              aria-label={url.trim() ? 'Clear URL' : 'Paste from clipboard'}
+              title={url.trim() ? 'Clear' : 'Paste from clipboard'}
               className="absolute inset-y-0 right-2 my-auto w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-lg text-gray-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-white/5 transition-colors"
             >
-              {pasted ? (
+              {url.trim() ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              ) : pasted ? (
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-600">
                   <path d="M5 12l5 5L20 7" />
                 </svg>
